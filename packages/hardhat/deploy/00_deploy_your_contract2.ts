@@ -21,10 +21,10 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  await deploy("SubToken", {
+  await deploy("MyGovernor", {
     from: deployer,
     // Contract constructor arguments
-    args: [],
+    args: ["0xE18C00c0e59D85fcc2eC56B7df453F208a7e1B7e"],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.
