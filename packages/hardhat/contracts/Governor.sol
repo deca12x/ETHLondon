@@ -18,7 +18,7 @@ contract MyGovernor is
 		IVotes _token
 	)
 		Governor("MyGovernor")
-		GovernorSettings(7200 /* 1 day */, 50400 /* 1 week */, 20)
+		GovernorSettings(7200 /* 1 day */, 50400 /* 1 week */, 0)
 		GovernorVotes(_token)
 		GovernorVotesQuorumFraction(4)
 	{}

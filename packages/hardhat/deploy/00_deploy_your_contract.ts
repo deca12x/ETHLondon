@@ -21,10 +21,25 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  await deploy("SubToken", {
+  await deploy("SubDomainCoin", {
     from: deployer,
     // Contract constructor arguments
-    args: [],
+    args: ["SubCoin3", "SD3", "8100000000000000000000000000"],
+    log: true,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
+
+  // get the deployed contract address
+  const { address } = await hre.deployments.get("SubDomainCoin");
+  console.log("SubDomainCoin deployed to:", address);
+
+  // deploy the Governor contract
+  await deploy("MyGovernor", {
+    from: deployer,
+    // Contract constructor arguments
+    args: [address],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.
@@ -39,4 +54,4 @@ export default deployYourContract;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
 // e.g. yarn deploy --tags YourContract
-deployYourContract.tags = ["SubToken"];
+deployYourContract.tags = ["SubDomainCoin", "MyGovernor"];
